@@ -12,4 +12,10 @@ export class HomePage extends BasePage {
     async verifyHomePage() {
         await expect(this.logo).toBeVisible()
     }
+
+    async verifyLoggedInAsUserName(fullName: string) {
+        const loggedInAsLocator = this.page.getByText(`Logged in as ${fullName}`)
+        await expect(loggedInAsLocator).toBeVisible()
+        await expect(loggedInAsLocator).toHaveText(`Logged in as ${fullName}`)
+    }
 }
