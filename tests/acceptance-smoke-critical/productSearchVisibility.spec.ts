@@ -20,4 +20,13 @@ test.describe('Product Search Visibility', () => {
         await searchPage.verifySearchedProductsTitle();
         await searchPage.verifyProductsAreVisible();
     });
+
+    test('Should display all products and product detail', async () => {
+        await homePage.verifyHomePage();
+        await homePage.clickOnNavLink('Products');
+        await searchPage.verifyAllProductsTitle();
+        await searchPage.verifyProductsAreVisible()
+        await searchPage.clickOnViewProductButton()
+        await searchPage.verifyDetailsAreVisible()
+    });
 });

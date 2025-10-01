@@ -14,6 +14,15 @@ export class SearchPage extends BasePage {
 
     private allProducts: Locator
 
+    private viewProductButton: Locator
+
+    private productName: Locator
+    private productCategory: Locator
+    private productPrice: Locator
+    private productAvailability: Locator
+    private productCondition: Locator
+    private productBrand: Locator
+
     constructor(page: Page) {
         super(page);
         this.searchBar = page.locator('input[name="search"]');
@@ -24,6 +33,15 @@ export class SearchPage extends BasePage {
         this.searchedProductsTitle = page.locator('h2[class="title text-center"]');
 
         this.allProducts = page.locator('div[class="features_items"] div[class="single-products"]');
+
+        this.viewProductButton = page.getByText('View Product');
+
+        this.productName = page.locator('div[class="product-information"] h2');
+        this.productCategory = page.locator('div[class="product-information"] p').nth(0);
+        this.productPrice = page.locator('div[class="product-information"] span span');
+        this.productAvailability = page.locator('div[class="product-information"] p').nth(1)
+        this.productCondition = page.locator('div[class="product-information"] p').nth(2)
+        this.productBrand = page.locator('div[class="product-information"] p').nth(3)
     }
 
     async verifyAllProductsTitle() {
@@ -55,8 +73,21 @@ export class SearchPage extends BasePage {
         await expect(this.allProducts.first()).toBeVisible();
         
         // Optional: Verify multiple products are visible if they exist
-        for (let i = 0; i < Math.min(productCount, 3); i++) {
+        for (let i = 0; i < productCount; i++) {
             await expect(this.allProducts.nth(i)).toBeVisible();
         }
+    }
+
+    async clickOnViewProductButton() {
+        await this.viewProductButton.nth(0).click();
+    }
+
+    async verifyDetailsAreVisible() {
+        await expect(this.productName).toBeVisible();
+        await expect(this.productCategory).toBeVisible();
+        await expect(this.productPrice).toBeVisible();
+        await expect(this.productAvailability).toBeVisible();
+        await expect(this.productCondition).toBeVisible();
+        await expect(this.productBrand).toBeVisible();
     }
 }
