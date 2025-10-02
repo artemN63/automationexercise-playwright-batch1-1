@@ -23,6 +23,12 @@ export class SearchPage extends BasePage {
     private productCondition: Locator
     private productBrand: Locator
 
+    private brands: Locator
+    private brandsTitle: Locator
+    private readonly expectedBrandsTitle: string = 'Brands'
+
+    private brandTitle: Locator
+
     constructor(page: Page) {
         super(page);
         this.searchBar = page.locator('input[name="search"]');
@@ -42,6 +48,25 @@ export class SearchPage extends BasePage {
         this.productAvailability = page.locator('div[class="product-information"] p').nth(1)
         this.productCondition = page.locator('div[class="product-information"] p').nth(2)
         this.productBrand = page.locator('div[class="product-information"] p').nth(3)
+
+        this.brands = page.locator('div[class="brands-name"] ul li');
+        this.brandsTitle = page.locator('div[class="brands_products"] h2')
+
+        this.brandTitle = page.locator('h2[class="title text-center"]')
+    }
+
+    async brandsAreVisible() {
+        await expect(this.brandsTitle).toHaveText(this.expectedBrandsTitle)
+    }
+
+    async randomBrandClickerAndVerification() {
+        const brandsCount = await this.brands.count()
+        const randomBrandByNumber = faker.number.int({min: 1, max: brandsCount})
+
+        const brandName = (await this.brands.nth(randomBrandByNumber - 1).innerText()).toLowerCase().slice(4)
+        await this.brands.nth(randomBrandByNumber - 1).click()
+
+        await expect((await this.brandTitle.innerText()).toLowerCase()).toContain(brandName)
     }
 
     async verifyAllProductsTitle() {
