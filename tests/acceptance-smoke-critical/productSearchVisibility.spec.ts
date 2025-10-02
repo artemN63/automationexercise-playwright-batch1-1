@@ -26,4 +26,12 @@ test.describe('Product Search Visibility', () => {
         await searchPage.clickOnViewProductButton()
         await searchPage.verifyDetailsAreVisible()
     });
+
+    test('Should display all products when choose a brand', async () => {
+        await searchPage.brandsAreVisible()
+        await searchPage.randomBrandClickerAndVerification()
+        await searchPage.verifyProductsAreVisible()
+        await searchPage.randomBrandClickerAndVerification()
+        await searchPage.verifyProductsAreVisible()
+    });
 });
