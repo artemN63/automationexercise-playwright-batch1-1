@@ -20,4 +20,14 @@ test.describe('Login with invalid credentials', () => {
         await loginSignUpPage.loginWithEmailAndPassword(faker.internet.email(), faker.internet.password());
         await loginSignUpPage.verifyErrorMessageForInvalidLogin()
     });
+
+    test('login with valid credentials', async () => {
+        await homePage.verifyHomePage()
+        await homePage.clickOnNavLink('Signup / Login');
+        await loginSignUpPage.validateLoginTitle()
+        await loginSignUpPage.loginWithEmailAndPassword(process.env.email!, process.env.password!);
+        await homePage.validateLoggedInAsUser('apologyaccount@gmail.com')
+        await homePage.clickOnNavLink('Delete Account');
+        await homePage.verifyAccountDeleted()
+    });
 });
