@@ -30,4 +30,14 @@ test.describe('Login with invalid credentials', () => {
         await homePage.clickOnNavLink('Delete Account');
         await homePage.verifyAccountDeleted()
     });
+
+    test('logout happy path', async () => {
+        await homePage.verifyHomePage()
+        await homePage.clickOnNavLink('Signup / Login');
+        await loginSignUpPage.validateLoginTitle()
+        await loginSignUpPage.loginWithEmailAndPassword(process.env.email!, process.env.password!);
+        await homePage.validateLoggedInAsUser('apologyaccount@gmail.com')
+        await homePage.clickOnNavLink('Logout');
+        await homePage.validateLogInUrl()
+    });
 });

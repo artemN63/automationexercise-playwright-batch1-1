@@ -12,6 +12,8 @@ export class HomePage extends BasePage {
     private accountDeletedMessage: Locator
     private readonly expectedAccountDeletedMessageText = 'Account Deleted!'
 
+    private expectedLogInUrl = 'https://automationexercise.com/login'
+
     constructor(page: Page) {
         super(page)
         this.logo = page.getByRole('link', { name: 'Website for automation' })
@@ -22,6 +24,10 @@ export class HomePage extends BasePage {
 
         this.loggedInAsLocator = page.locator('a').filter({ hasText: 'Logged in as' })
         this.accountDeletedMessage = page.locator('h2').filter({ hasText: this.expectedAccountDeletedMessageText })
+    }
+
+    async validateLogInUrl() {
+        await expect(this.page).toHaveURL(this.expectedLogInUrl)
     }
 
     async verifyAccountDeleted() {
