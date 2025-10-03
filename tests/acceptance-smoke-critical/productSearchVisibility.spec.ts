@@ -42,7 +42,7 @@ test.describe('Product Search Visibility', () => {
         await searchPage.searchForProduct()
         await searchPage.verifySearchedProductsTitle()
         await searchPage.verifyProductsAreVisible()
-        await searchPage.clickAddToCartButton()
+        await searchPage.clickAllAddToCartButton()
         await homePage.clickOnNavLink('Cart')
         await searchPage.verifyProductsInCart()
         await homePage.clickOnNavLink('Signup / Login')

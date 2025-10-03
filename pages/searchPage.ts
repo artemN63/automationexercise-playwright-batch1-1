@@ -73,7 +73,7 @@ export class SearchPage extends BasePage {
         }
     }
 
-    async clickAddToCartButton() {
+    async clickAllAddToCartButton() {
         const productsCount = await this.addToCartButton.count()
 
         for(let i = 0; i < productsCount; i++) {
