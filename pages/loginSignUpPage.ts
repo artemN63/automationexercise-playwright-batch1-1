@@ -19,6 +19,9 @@ export class LoginSignUpPage extends BasePage {
     private errorMessage: Locator
     private readonly expectedLoginErrorMessage = 'Your email or password is incorrect!'
 
+    private emailAddressAlreadyExistMessage: Locator
+    private readonly expectedEmailAddressAlreadyExistMessage = 'Email Address already exist!'
+
     constructor(page: Page) {
         super(page)
         this.signUpTitle = page.getByRole('heading', { name: this.expectedSignUpTitleText })
@@ -30,6 +33,12 @@ export class LoginSignUpPage extends BasePage {
         this.loginPasswordField = page.locator('input[data-qa="login-password"]')
         this.loginButton = page.locator('button[data-qa="login-button"]')
         this.errorMessage = page.locator('p[style="color: red;"]')
+        this.emailAddressAlreadyExistMessage = page.locator('form').filter({ hasText: 'Signup' }).locator('p').first()
+    }
+
+    async verifyEmailAddressAlreadyExistMessage(): Promise<void> {
+        expect(this.emailAddressAlreadyExistMessage).toBeVisible()
+        expect(this.emailAddressAlreadyExistMessage).toHaveText(this.expectedEmailAddressAlreadyExistMessage)
     }
 
     async verifyErrorMessageForInvalidLogin(): Promise<void> {
