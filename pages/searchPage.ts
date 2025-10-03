@@ -29,6 +29,11 @@ export class SearchPage extends BasePage {
 
     private brandTitle: Locator
 
+    private addToCartButton: Locator
+    private continueShoppingButton: Locator
+
+    private productInCart: Locator
+
     constructor(page: Page) {
         super(page);
         this.searchBar = page.locator('input[name="search"]');
@@ -53,6 +58,28 @@ export class SearchPage extends BasePage {
         this.brandsTitle = page.locator('div[class="brands_products"] h2')
 
         this.brandTitle = page.locator('h2[class="title text-center"]')
+
+        this.addToCartButton = page.locator('div[class="productinfo text-center"] a[class="btn btn-default add-to-cart"] i')
+        this.continueShoppingButton = page.getByText('Continue Shopping');
+
+        this.productInCart = page.locator('td[class="cart_product"]');
+    }
+
+    async verifyProductsInCart() {
+        const productsCount = await this.addToCartButton.count()
+
+        for(let i = 0; i < productsCount; i++) {
+            await expect(this.productInCart.nth(i)).toBeVisible()
+        }
+    }
+
+    async clickAddToCartButton() {
+        const productsCount = await this.addToCartButton.count()
+
+        for(let i = 0; i < productsCount; i++) {
+            await this.addToCartButton.nth(i).click()
+            await this.continueShoppingButton.click()
+        }
     }
 
     async brandsAreVisible() {
