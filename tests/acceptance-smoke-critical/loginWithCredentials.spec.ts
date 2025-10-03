@@ -40,4 +40,12 @@ test.describe('Login with invalid credentials', () => {
         await homePage.clickOnNavLink('Logout');
         await homePage.validateLogInUrl()
     });
+
+    test('should display error message for using existing email', async () => {
+        await homePage.verifyHomePage()
+        await homePage.clickOnNavLink('Signup / Login');
+        await loginSignUpPage.validateLoginTitle()
+        await loginSignUpPage.signUpWithNameAndEmail(faker.person.fullName(), process.env.email!);
+        await loginSignUpPage.verifyEmailAddressAlreadyExistMessage()
+    });
 });
