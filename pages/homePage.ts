@@ -1,5 +1,6 @@
 import { Locator, Page, expect } from "@playwright/test";
 import { BasePage } from "./basePage";
+import { faker } from '@faker-js/faker';
 
 export class HomePage extends BasePage {
     private logo: Locator
@@ -21,6 +22,12 @@ export class HomePage extends BasePage {
     private recommendedItemsHeader: Locator
     private readonly expectedRecommendedItemsHeaderText = 'recommended items'
 
+    private addToCartFromRecommendedButton: Locator
+    private viewCartButton: Locator
+
+    private productName: Locator
+    private actualProductName: Locator
+
     constructor(page: Page) {
         super(page)
         this.logo = page.getByRole('link', { name: 'Website for automation' })
@@ -37,6 +44,20 @@ export class HomePage extends BasePage {
 
         this.recommendedItemsSection = page.locator('div[class="recommended_items"]')
         this.recommendedItemsHeader = this.recommendedItemsSection.locator('h2').filter({ hasText: 'recommended items' })
+        this.addToCartFromRecommendedButton = page.locator('div[class="recommended_items"] a[class="btn btn-default add-to-cart"] i')
+        this.viewCartButton = page.getByText('View Cart');
+
+        this.productName = page.locator('div[class="recommended_items"] p')
+        this.actualProductName = page.locator('td[class="cart_description"] a')
+    }
+
+    async clickAddToCartFromRecommendedButtonAndVerifyProduct() {
+        const productNameText = await this.productName.first().textContent()
+        await this.addToCartFromRecommendedButton.first().click()
+        await this.viewCartButton.click()
+
+        await expect(this.actualProductName).toBeVisible()
+        await expect(this.actualProductName).toHaveText(productNameText!.trim())
     }
 
     async verifyRecommendedItemsSection() {
