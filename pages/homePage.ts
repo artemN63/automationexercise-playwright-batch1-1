@@ -1,5 +1,6 @@
 import { Locator, Page, expect } from "@playwright/test";
 import { BasePage } from "./basePage";
+import { faker } from '@faker-js/faker';
 
 export class HomePage extends BasePage {
     private logo: Locator
