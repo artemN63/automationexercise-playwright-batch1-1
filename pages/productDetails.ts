@@ -6,8 +6,7 @@ export class ProductDetailsPage extends BasePage {
     private addToCartButton: Locator
     private viewCartButton: Locator
 
-    private nameOfProduct: Locator
-    private actualNameOfProduct: Locator
+    private actualQuantity: Locator
 
     constructor(page: Page) {
         super(page)
@@ -15,8 +14,7 @@ export class ProductDetailsPage extends BasePage {
         this.addToCartButton = page.locator('button[class="btn btn-default cart"]')
         this.viewCartButton = page.locator('p[class="text-center"] a')
 
-        this.nameOfProduct = page.locator('div[class="product-information"] h2')
-        this.actualNameOfProduct = page.locator('td[class="cart_description"] h4 a')
+        this.actualQuantity = page.locator('button[class="disabled"]')
     }
 
     async changeQuantity(quantity: string): Promise<void> {
@@ -32,6 +30,6 @@ export class ProductDetailsPage extends BasePage {
     }
 
     async verifyQuantity(quantity: string): Promise<void> {
-        await expect(this.quantityInput).toBe(quantity)
+        await expect(this.actualQuantity).toHaveText(quantity)
     }
 }
