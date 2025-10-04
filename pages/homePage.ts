@@ -18,16 +18,6 @@ export class HomePage extends BasePage {
     private addToCartButton: Locator
     private continueShoppingButton: Locator
 
-    private recommendedItemsSection: Locator
-    private recommendedItemsHeader: Locator
-    private readonly expectedRecommendedItemsHeaderText = 'recommended items'
-
-    private addToCartFromRecommendedButton: Locator
-    private viewCartButton: Locator
-
-    private productName: Locator
-    private actualProductName: Locator
-
     constructor(page: Page) {
         super(page)
         this.logo = page.getByRole('link', { name: 'Website for automation' })
@@ -41,33 +31,6 @@ export class HomePage extends BasePage {
         
         this.addToCartButton = page.locator('div[class="productinfo text-center"] a[class="btn btn-default add-to-cart"] i')
         this.continueShoppingButton = page.getByText('Continue Shopping');
-
-        this.recommendedItemsSection = page.locator('div[class="recommended_items"]')
-        this.recommendedItemsHeader = this.recommendedItemsSection.locator('h2').filter({ hasText: 'recommended items' })
-        this.addToCartFromRecommendedButton = page.locator('div[class="recommended_items"] a[class="btn btn-default add-to-cart"] i')
-        this.viewCartButton = page.getByText('View Cart');
-
-        this.productName = page.locator('div[class="recommended_items"] p')
-        this.actualProductName = page.locator('td[class="cart_description"] a')
-    }
-
-    async clickAddToCartFromRecommendedButtonAndVerifyProduct() {
-        const productNameText = await this.productName.first().textContent()
-        await this.addToCartFromRecommendedButton.first().click()
-        await this.viewCartButton.click()
-
-        await expect(this.actualProductName).toBeVisible()
-        await expect(this.actualProductName).toHaveText(productNameText!.trim())
-    }
-
-    async verifyRecommendedItemsSection() {
-        await expect(this.recommendedItemsHeader).toBeVisible()
-        await expect(this.recommendedItemsHeader).toHaveText(this.expectedRecommendedItemsHeaderText)
-    }
-
-    async scrollToRecommendedSection() {
-        await this.recommendedItemsSection.scrollIntoViewIfNeeded()
-        await expect(this.recommendedItemsSection).toBeVisible()
     }
 
     async clickAddToCartButton(howMany: number): Promise<void> {
