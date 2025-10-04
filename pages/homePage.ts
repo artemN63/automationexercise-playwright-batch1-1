@@ -1,5 +1,6 @@
 import { Locator, Page, expect } from "@playwright/test";
 import { BasePage } from "./basePage";
+import { faker } from '@faker-js/faker';
 
 export class HomePage extends BasePage {
     private logo: Locator
@@ -14,6 +15,19 @@ export class HomePage extends BasePage {
 
     private expectedLogInUrl = 'https://automationexercise.com/login'
 
+    private addToCartButton: Locator
+    private continueShoppingButton: Locator
+
+    private recommendedItemsSection: Locator
+    private recommendedItemsHeader: Locator
+    private readonly expectedRecommendedItemsHeaderText = 'recommended items'
+
+    private addToCartFromRecommendedButton: Locator
+    private viewCartButton: Locator
+
+    private productName: Locator
+    private actualProductName: Locator
+
     constructor(page: Page) {
         super(page)
         this.logo = page.getByRole('link', { name: 'Website for automation' })
@@ -24,6 +38,43 @@ export class HomePage extends BasePage {
 
         this.loggedInAsLocator = page.locator('a').filter({ hasText: 'Logged in as' })
         this.accountDeletedMessage = page.locator('h2').filter({ hasText: this.expectedAccountDeletedMessageText })
+        
+        this.addToCartButton = page.locator('div[class="productinfo text-center"] a[class="btn btn-default add-to-cart"] i')
+        this.continueShoppingButton = page.getByText('Continue Shopping');
+
+        this.recommendedItemsSection = page.locator('div[class="recommended_items"]')
+        this.recommendedItemsHeader = this.recommendedItemsSection.locator('h2').filter({ hasText: 'recommended items' })
+        this.addToCartFromRecommendedButton = page.locator('div[class="recommended_items"] a[class="btn btn-default add-to-cart"] i')
+        this.viewCartButton = page.getByText('View Cart');
+
+        this.productName = page.locator('div[class="recommended_items"] p')
+        this.actualProductName = page.locator('td[class="cart_description"] a')
+    }
+
+    async clickAddToCartFromRecommendedButtonAndVerifyProduct() {
+        const productNameText = await this.productName.first().textContent()
+        await this.addToCartFromRecommendedButton.first().click()
+        await this.viewCartButton.click()
+
+        await expect(this.actualProductName).toBeVisible()
+        await expect(this.actualProductName).toHaveText(productNameText!.trim())
+    }
+
+    async verifyRecommendedItemsSection() {
+        await expect(this.recommendedItemsHeader).toBeVisible()
+        await expect(this.recommendedItemsHeader).toHaveText(this.expectedRecommendedItemsHeaderText)
+    }
+
+    async scrollToRecommendedSection() {
+        await this.recommendedItemsSection.scrollIntoViewIfNeeded()
+        await expect(this.recommendedItemsSection).toBeVisible()
+    }
+
+    async clickAddToCartButton(howMany: number): Promise<void> {
+        for(let i = 0; i < howMany; i++) {
+            await this.addToCartButton.nth(i).click()
+            await this.continueShoppingButton.click()
+        }
     }
 
     async validateLogInUrl() {
