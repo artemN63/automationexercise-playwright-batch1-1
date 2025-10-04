@@ -2,16 +2,19 @@ import {test } from '@playwright/test';
 import { HomePage } from '../../pages/homePage';
 import { SearchPage } from '../../pages/searchPage';
 import { LoginSignUpPage } from '../../pages/loginSignUpPage';
+import { ProductDetailsPage } from '../../pages/productDetails';
 
 test.describe('Product Search Visibility', () => {
     let homePage: HomePage;
     let searchPage: SearchPage;
     let loginSignUpPage: LoginSignUpPage;
+    let productDetailsPage: ProductDetailsPage;
 
     test.beforeEach(async ({ page }) => {
         homePage = new HomePage(page);
         searchPage = new SearchPage(page);
         loginSignUpPage = new LoginSignUpPage(page);
+        productDetailsPage = new ProductDetailsPage(page);
         await page.goto(process.env.baseUrl!);
         await homePage.verifyHomePage();
         await homePage.clickOnNavLink('Products');
@@ -49,5 +52,14 @@ test.describe('Product Search Visibility', () => {
         await loginSignUpPage.loginWithEmailAndPassword(process.env.email!, process.env.password!)
         await homePage.clickOnNavLink('Cart')
         await searchPage.verifyProductsInCart()
+    });
+
+    test('Verify Product quantity in Cart', async () => {
+        await searchPage.clickOnViewProductButton()
+        await searchPage.verifyDetailsAreVisible()
+        await productDetailsPage.changeQuantity('4')
+        await productDetailsPage.clickAddToCart()
+        await productDetailsPage.clickViewCartButton()
+        await productDetailsPage.verifyQuantity('4')
     });
 });
