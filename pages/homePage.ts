@@ -14,6 +14,9 @@ export class HomePage extends BasePage {
 
     private expectedLogInUrl = 'https://automationexercise.com/login'
 
+    private addToCartButton: Locator
+    private continueShoppingButton: Locator
+
     constructor(page: Page) {
         super(page)
         this.logo = page.getByRole('link', { name: 'Website for automation' })
@@ -24,6 +27,16 @@ export class HomePage extends BasePage {
 
         this.loggedInAsLocator = page.locator('a').filter({ hasText: 'Logged in as' })
         this.accountDeletedMessage = page.locator('h2').filter({ hasText: this.expectedAccountDeletedMessageText })
+        
+        this.addToCartButton = page.locator('div[class="productinfo text-center"] a[class="btn btn-default add-to-cart"] i')
+        this.continueShoppingButton = page.getByText('Continue Shopping');
+    }
+
+    async clickAddToCartButton(howMany: number): Promise<void> {
+        for(let i = 0; i < howMany; i++) {
+            await this.addToCartButton.nth(i).click()
+            await this.continueShoppingButton.click()
+        }
     }
 
     async validateLogInUrl() {
