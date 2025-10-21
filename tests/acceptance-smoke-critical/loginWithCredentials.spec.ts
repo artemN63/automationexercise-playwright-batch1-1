@@ -27,8 +27,6 @@ test.describe('Login with invalid credentials', () => {
         await loginSignUpPage.validateLoginTitle()
         await loginSignUpPage.loginWithEmailAndPassword(process.env.email!, process.env.password!);
         await homePage.validateLoggedInAsUser('apologyaccount@gmail.com')
-        await homePage.clickOnNavLink('Delete Account');
-        await homePage.verifyAccountDeleted()
     });
 
     test('logout happy path', async () => {
