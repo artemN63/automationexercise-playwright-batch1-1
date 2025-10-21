@@ -18,32 +18,56 @@ try {
     if (fs.existsSync(resultsPath)) {
         const results = JSON.parse(fs.readFileSync(resultsPath, 'utf8'));
         
-        results.suites.forEach(suite => {
-            suite.specs.forEach(spec => {
-                spec.tests.forEach(test => {
-                    summary.total++;
-                    const result = test.results[0];
-                    
-                    if (result.status === 'passed') summary.passed++;
-                    else if (result.status === 'failed') summary.failed++;
-                    else if (result.status === 'skipped') summary.skipped++;
-                    
-                    summary.duration += result.duration || 0;
-                    
-                    // Collect failed tests for details
-                    if (result.status === 'failed') {
-                        summary.tests.push({
-                            title: spec.title,
-                            file: spec.file,
-                            error: result.error?.message || 'Unknown error'
+        // Handle Playwright's JSON reporter format
+        if (results.suites) {
+            results.suites.forEach(suite => {
+                const processSuite = (s) => {
+                    if (s.specs && s.specs.length > 0) {
+                        s.specs.forEach(spec => {
+                            if (spec.tests && spec.tests.length > 0) {
+                                spec.tests.forEach(test => {
+                                    summary.total++;
+                                    const result = test.results && test.results[0];
+                                    
+                                    if (result) {
+                                        if (result.status === 'passed') summary.passed++;
+                                        else if (result.status === 'failed') summary.failed++;
+                                        else if (result.status === 'skipped') summary.skipped++;
+                                        
+                                        summary.duration += result.duration || 0;
+                                        
+                                        // Collect failed tests for details
+                                        if (result.status === 'failed') {
+                                            summary.tests.push({
+                                                title: spec.title,
+                                                file: spec.file,
+                                                error: result.error?.message || 'Unknown error'
+                                            });
+                                        }
+                                    }
+                                });
+                            }
                         });
                     }
-                });
+                    
+                    // Recursively process nested suites
+                    if (s.suites && s.suites.length > 0) {
+                        s.suites.forEach(nestedSuite => processSuite(nestedSuite));
+                    }
+                };
+                
+                processSuite(suite);
             });
-        });
+        }
+        
+        console.log(`Parsed results: ${summary.passed} passed, ${summary.failed} failed, ${summary.skipped} skipped, ${summary.total} total`);
+    } else {
+        console.log(`Results file not found at: ${resultsPath}`);
+        console.log('Using default values (all zeros)');
     }
 } catch (error) {
     console.error('Error reading test results:', error);
+    console.log('Using default values (all zeros)');
 }
 
 // Format duration
@@ -57,11 +81,13 @@ const formatDuration = (ms) => {
 // Calculate success rate
 const successRate = summary.total > 0 
     ? ((summary.passed / summary.total) * 100).toFixed(1) 
-    : 0;
+    : 'N/A';
 
 // Determine status emoji
-const statusEmoji = summary.failed === 0 ? '✅' : '❌';
-const statusText = summary.failed === 0 ? 'All tests passed!' : `${summary.failed} test(s) failed`;
+const statusEmoji = summary.total === 0 ? '⏳' : (summary.failed === 0 ? '✅' : '❌');
+const statusText = summary.total === 0 
+    ? 'No test results available yet' 
+    : (summary.failed === 0 ? 'All tests passed!' : `${summary.failed} test(s) failed`);
 
 // Generate markdown summary
 let markdown = `# ${statusEmoji} Test Results Summary\n\n`;
@@ -73,8 +99,8 @@ markdown += `| ✅ Passed | **${summary.passed}** |\n`;
 markdown += `| ❌ Failed | **${summary.failed}** |\n`;
 markdown += `| ⏭️ Skipped | **${summary.skipped}** |\n`;
 markdown += `| 📊 Total | **${summary.total}** |\n`;
-markdown += `| 🎯 Success Rate | **${successRate}%** |\n`;
-markdown += `| ⏱️ Duration | **${formatDuration(summary.duration)}** |\n\n`;
+markdown += `| 🎯 Success Rate | **${successRate}${typeof successRate === 'number' ? '%' : ''}** |\n`;
+markdown += `| ⏱️ Duration | **${summary.total > 0 ? formatDuration(summary.duration) : 'N/A'}** |\n\n`;
 
 // Status badge
 if (summary.failed === 0) {
