@@ -25,7 +25,7 @@ jobs:
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
       
-    - name: Run Tests
+    - name: Run chromium
         env:
           baseUrl: 'https://automationexercise.com/'
           email: ${{ secrets.email }}
