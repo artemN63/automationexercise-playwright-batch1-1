@@ -58,11 +58,8 @@ jobs:
 
     - name: Create Test Summary
       if: always()
-      run: |
-        echo "## 🧪 Test Results" >> $GITHUB_STEP_SUMMARY
-        echo "" >> $GITHUB_STEP_SUMMARY
-        echo "📊 **Report URL:** https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/reports/${{ github.run_number }}/" >> $GITHUB_STEP_SUMMARY
-        echo "" >> $GITHUB_STEP_SUMMARY
+      run: node .github/workflows/generate-summary.js
+      continue-on-error: true
 
     - name: Deploy Report to GitHub Pages
       if: always()
