@@ -23,7 +23,7 @@ jobs:
     - name: Install dependencies
       run: npm ci
       
-    - name: Run API Tests
+    - name: Run Tests
         env:
           baseUrl: 'https://automationexercise.com/'
           email: ${{ secrets.email }}
