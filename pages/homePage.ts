@@ -87,7 +87,6 @@ export class HomePage extends BasePage {
     }
 
     async validateLoggedInAsUser(fullName: string) {
-        await expect(this.loggedInAsLocator).toBeVisible()
         await expect(this.loggedInAsLocator).toHaveText(`Logged in as ${fullName}`)
     }
 
