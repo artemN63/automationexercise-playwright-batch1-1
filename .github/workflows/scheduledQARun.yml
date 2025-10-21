@@ -9,6 +9,10 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
     
     steps:
     - name: Checkout code
@@ -23,7 +27,7 @@ jobs:
       run: npm ci
 
     - name: Install Playwright Browsers
-      run: npx playwright install --with-deps  
+      run: npx playwright install --with-deps
       
     - name: Run UI Tests
       env:
@@ -47,13 +51,36 @@ jobs:
         name: test-results
         path: test-results/
         retention-days: 30
-        
+
+    - name: Generate Report Index Page
+      if: always()
+      run: node .github/workflows/create-index.js
+
+    - name: Create Test Summary
+      if: always()
+      run: node .github/workflows/generate-summary.js
+      continue-on-error: true
+
     - name: Deploy Report to GitHub Pages
-      if: github.ref == 'refs/heads/main'
-      uses: peaceiris/actions-gh-pages@v3
+      if: always()
+      uses: peaceiris/actions-gh-pages@v4
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./playwright-report/  # Directory with your report (adjust accordingly)
+        publish_dir: ./playwright-report
         publish_branch: gh-pages
-        user_name: github-actions
-        user_email: github-actions@github.com
+        destination_dir: reports/${{ github.run_number }}
+        keep_files: true
+        user_name: github-actions[bot]
+        user_email: github-actions[bot]@users.noreply.github.com
+        
+    - name: Comment PR with Report Link
+      if: always() && github.event_name == 'pull_request'
+      uses: actions/github-script@v7
+      with:
+        script: |
+          github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: `📊 Test Report: https://${context.repo.owner}.github.io/${context.repo.repo}/reports/${{ github.run_number }}/`
+          })
