@@ -47,3 +47,13 @@ jobs:
         name: test-results
         path: test-results/
         retention-days: 30
+        
+    - name: Deploy Report to GitHub Pages
+      if: github.ref == 'refs/heads/main'
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./playwright-report/  # Directory with your report (adjust accordingly)
+        publish_branch: gh-pages
+        user_name: github-actions
+        user_email: github-actions@github.com
