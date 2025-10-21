@@ -30,7 +30,7 @@ jobs:
         baseUrl: 'https://automationexercise.com/'
         email: ${{ secrets.email }}
         password: ${{ secrets.password }}
-      run: npm test
+      run: npx playwright test
       
     - name: Upload test results
       uses: actions/upload-artifact@v4
