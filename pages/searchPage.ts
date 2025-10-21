@@ -105,7 +105,7 @@ export class SearchPage extends BasePage {
     }
 
     async searchForProduct() {
-        const clothingItems = ['shirt', 'dress', 'jeans', 'sweater', 'top'];
+        const clothingItems = ['shirt', 'dress', 'jeans', 'top'];
         const randomClothing = faker.helpers.arrayElement(clothingItems);
         await this.searchBar.fill(randomClothing);
         await this.searchButton.click();
