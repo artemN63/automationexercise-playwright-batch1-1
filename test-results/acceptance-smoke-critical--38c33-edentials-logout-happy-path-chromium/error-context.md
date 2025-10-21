@@ -1,0 +1,90 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e5]:
+      - link "Website for automation practice" [ref=e8] [cursor=pointer]:
+        - /url: /
+        - img "Website for automation practice" [ref=e9] [cursor=pointer]
+      - list [ref=e12]:
+        - listitem [ref=e13]:
+          - link " Home" [ref=e14] [cursor=pointer]:
+            - /url: /
+            - generic [ref=e15] [cursor=pointer]: 
+            - text: Home
+        - listitem [ref=e16]:
+          - link " Products" [ref=e17] [cursor=pointer]:
+            - /url: /products
+            - generic [ref=e18] [cursor=pointer]: 
+            - text: Products
+        - listitem [ref=e19]:
+          - link " Cart" [ref=e20] [cursor=pointer]:
+            - /url: /view_cart
+            - generic [ref=e21] [cursor=pointer]: 
+            - text: Cart
+        - listitem [ref=e22]:
+          - link " Signup / Login" [ref=e23] [cursor=pointer]:
+            - /url: /login
+            - generic [ref=e24] [cursor=pointer]: 
+            - text: Signup / Login
+        - listitem [ref=e25]:
+          - link " Test Cases" [ref=e26] [cursor=pointer]:
+            - /url: /test_cases
+            - generic [ref=e27] [cursor=pointer]: 
+            - text: Test Cases
+        - listitem [ref=e28]:
+          - link " API Testing" [ref=e29] [cursor=pointer]:
+            - /url: /api_list
+            - generic [ref=e30] [cursor=pointer]: 
+            - text: API Testing
+        - listitem [ref=e31]:
+          - link " Video Tutorials" [ref=e32] [cursor=pointer]:
+            - /url: https://www.youtube.com/c/AutomationExercise
+            - generic [ref=e33] [cursor=pointer]: 
+            - text: Video Tutorials
+        - listitem [ref=e34]:
+          - link " Contact us" [ref=e35] [cursor=pointer]:
+            - /url: /contact_us
+            - generic [ref=e36] [cursor=pointer]: 
+            - text: Contact us
+  - generic [ref=e39]:
+    - generic [ref=e41]:
+      - heading "Login to your account" [level=2] [ref=e42]
+      - generic [ref=e43]:
+        - textbox "Email Address" [ref=e44]: apologyaccount@gmail.com
+        - textbox "Password" [ref=e45]: apologyaccount@gmail.com
+        - paragraph [ref=e46]: Your email or password is incorrect!
+        - button "Login" [ref=e47] [cursor=pointer]
+    - heading "OR" [level=2] [ref=e49]
+    - generic [ref=e51]:
+      - heading "New User Signup!" [level=2] [ref=e52]
+      - generic [ref=e53]:
+        - textbox "Name" [ref=e54]
+        - textbox "Email Address" [ref=e55]
+        - button "Signup" [ref=e56] [cursor=pointer]
+  - contentinfo [ref=e57]:
+    - generic [ref=e62]:
+      - heading "Subscription" [level=2] [ref=e63]
+      - generic [ref=e64]:
+        - textbox "Your email address" [ref=e65]
+        - button "" [ref=e66] [cursor=pointer]:
+          - generic [ref=e67] [cursor=pointer]: 
+        - paragraph [ref=e68]:
+          - text: Get the most recent updates from
+          - text: our site and be updated your self...
+    - paragraph [ref=e72]: Copyright © 2021 All rights reserved
+  - text: 
+  - insertion [ref=e73]:
+    - iframe [ref=e76]:
+      - iframe [ref=f1e1]:
+        - generic [ref=f2e2]:
+          - link "Advertisement" [ref=f2e4] [cursor=pointer]:
+            - /url: https://ad.doubleclick.net/pcs/click?xai=AKAOjsuc0tW4TiYPKw4F87TO7wMUgzJbyzU1rIKIYvrAxvCM13AnBUE9FWnW2WoWKZUkRN5JssvGk5cv2SO133cBlA6-OrvMiUXzY5tRIMAiRYA2EOxGBemGSQn0T9FCiQW2_wXeu5_8_KfCILHNGCrtIoJR8LSLXixem50ROIzKpZJP4L-MwaCBa4k6uwiEuyullt4Ts5hhKCZIJnzT5tX8bPGLmcWBm7X1OqZ8b2gI5g933CZIk6cq27Dey6f7uT-8d-R2qUQJOCbTccFCiDvfSnlEWe0WODUn3cZFVfNWv2MHREF1DH_hSYRHeHmgXafAQfeQ9q7CyrYrvhvomqio9iKGzrJc459xYzt60vrE6BO_ejIHZnjm7g3dKpkMu0fuUDlmQ4iZIbfmeHmS6nEgwdVLf4GZyacHUnyNNhmVskLHXVGdf9HrvjBrNiB1F9_MRNEmBuiCSyEh2-ZQyrKxLENHyLNW0M_yQfIm_K04-NM_DwgNmQAmayw6x-TBheSWq91KX6hALXft506FBUfw93Md4ot2Ld-I3a1TceKjdSE7RZj8iHpNUc5Epzw792N0kuMoQ7K6j-VhFxLSX7ytyJFDhWrnTwqwbAZiVpty3HqFG35lJcZZaMnVJIAHl15qbCtyYJ5ZT4JtkI9IsW-BQSOOIcEcCb25DRoYO9mK7Sx5AY1rj9ahzaU9SuBTxKNJjWeGtuAPB7FRCePeL4MAfSCGWo_QNV74m7P22mdqyWOJ671JrDxQnzHuWq_mgAhMiwBm-gytBRCj-9f6zN1xttSUojONapp-ZHW9TEuQoAb57RO0b-duktUd4EFYLeujrqv_FM4s7BpskWedS1-MS51IhzbarzITJNShBd6Zlo4ZLPbB2xpZFbywqhdfZe3GJiBA1F3Eftpx7T_tyuJgRYVfdljMTGaL8OONk9MnJ8Kpq1ImgZoFTJyn8cY2mouG5oNFEAr87xToTE3NfUU4itIVxAIedDtF-exQ62_md1EV8SY7ElYfyLtdMU8q2aDvI5XYftKqHJ2Mzx4Tsh8-YQsPKMtriAP0FDca-a0IpkZ89-8ZEgqv6d8TlY0Qq0D_7oO_uWRRDK7b0AIOSfFE_3udqgj1XS0aBFcjGxMDjun7YxinSzKsJJdV4Pn-EvhhTp7Qf_8pKEIMWgR9hDMa4z8aoNocU9aXehXsK25Zhp1rbsIrhRNAkZ5f3Sfgb5inYwY19vPdmtFanLZmj_m0AQZTKsMSTENOZQOiQGdxCAQyUzWYU1y5Zx5CVBhZzd4q1E4SKMzCijSdgz8DrzuiWT-iSQlxtkzN0Qeza8k2B1HlxmPk8KTG79ga6qj3NA5YD7e-ebLKkvrMoOvh8RP1AplvdnetZORDPpLBNTJWey2XuVZFt541e_EDKhVIP0Muh8NitHKQxzCmXA_agiEvikQ7psIGEDt1bsAFPrzW6jJ1V4zER_xi0v9XX16DU4E89FqpZ8fVXdAS0Hb44fYLSTaRkbQk4dxTO3zvLheX7_KWX5Nc5moxNhnqn5nF_EUwVd8BBYVixybPQ3-gdqkkoNr8uX6gIZiVtP_2OhrlWCS2n89yoBhhVpW-Bw7D7sEoFBkMqIJ4Z2a20UwVsZhMG-7rSr8YGzrHYDvjKlcRz-8mgPb9q3qvR5MkjDXbGV2NCi5zqQEoBtBEnkc4TFSqXBp3ZiSEe4hH5HcpTds0QxzOCGXpzUUiRYvuEOHQtoNMflJYJSe4ESg3H0qdWe5SPSkK&sai=AMfl-YT8ah_KrT_JFP2CC5LA6b5ir8KUzgdzwFMyIKNTslrnnD4bMqeZn_9hXIKqOVci-iQKmMTwzqz3c_3zFqvxlEWXScG2RbBltRpfNkhMICLSZLEPYIPgnoWI9oJRR8sWPiAfYXr-vVK1gAgGgA4lXXw3f7RzjZcuMCuFlRllyjFhYchLGfZuN2YapZDAVhiKwj5deyY1lTPSxwuwsAauScNlyaA58nAvzYqV6yaPzhJvjkzaZRY_8njBN-cFBVpV0iFaPi2dLiElXBeFjnvqLCob-XGXxPegYh8Yl5JBNdk3dKMufTi-eNIdocDPJszRIIzjg8GM8_vrU-pT7-xhRuBYn_RQSbMsEGAKuZjVydGVB5Tsu65ppxYbIo7mVhcivz7pDX_nUpirYMB8GqkKzBu4W6vRGnlaKIrhQv5n0COE5w5YZM0vWNQfYjbXHceioIJf6jxCZO8aDImb4kh-gfdjr1o7dS2Xw2nxYeoeF0wh_yY665AHWMRZm2Aol4iPAGKZ0pkyJYIPZAcD7H_zRHQWPaeDmVQmAXGM3TOqbrKVZ6e3Ymrx1WHV1RlSQEHqziyELMJM-VTwBbNQLENmUKWeXzL3NvmXW2_bLY-2xJKfxRvNIMi7YH5FFY4aGIrOMPi2&sig=Cg0ArKJSzFAmZ49zxSBr&fbs_aeid=%5Bgw_fbsaeid%5D&crd=aHR0cHM6Ly9maXZlcnIuY29t&urlfix=1&adurl=https://www.fiverr.com%3Futm_source%3Ddv360%26utm_medium%3Ddisplay%26utm_campaign%3Ddv_ge-us_crt-display_dv-desktop%26utm_term%3DTest-CB%26utm_content%3Dmar-business-fib_High-value%5Eusp-it%27s-done-red_728x90%26dclid%3D%25edclid!%26gad_source%3D7
+            - img "Advertisement" [ref=f2e5] [cursor=pointer]
+          - generic [ref=f2e6]:
+            - generic:
+              - img [ref=f2e10] [cursor=pointer]
+              - button [ref=f2e13] [cursor=pointer]:
+                - img [ref=f2e14] [cursor=pointer]
+```
