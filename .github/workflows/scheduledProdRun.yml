@@ -24,6 +24,7 @@ jobs:
 
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
+<<<<<<< Updated upstream
       
     - name: Run Tests
         env:
@@ -31,6 +32,15 @@ jobs:
           email: ${{ secrets.email }}
           password: ${{ secrets.password }}
         run: npm test
+=======
+
+    - name: Run UI Tests
+      env:
+        baseUrl: 'https://automationexercise.com/'
+        email: ${{ secrets.email }}
+        password: ${{ secrets.password }}
+      run: npm test
+>>>>>>> Stashed changes
       
     - name: Upload test results
       uses: actions/upload-artifact@v4
