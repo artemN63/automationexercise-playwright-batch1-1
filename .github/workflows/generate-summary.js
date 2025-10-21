@@ -92,23 +92,6 @@ const statusText = summary.total === 0
 // Generate markdown summary
 let markdown = `# ${statusEmoji} TEST RESULTS SUMMARY\n\n`;
 
-// Quick status badges
-markdown += `<div align="center">\n\n`;
-if (summary.total > 0) {
-    const status = summary.failed === 0 ? 'passing' : 'failing';
-    const color = summary.failed === 0 ? 'brightgreen' : 'red';
-    markdown += `![Tests](https://img.shields.io/badge/tests-${status}-${color})\n`;
-    markdown += `![Passed](https://img.shields.io/badge/passed-${summary.passed}-brightgreen)\n`;
-    if (summary.failed > 0) {
-        markdown += `![Failed](https://img.shields.io/badge/failed-${summary.failed}-red)\n`;
-    }
-    if (summary.skipped > 0) {
-        markdown += `![Skipped](https://img.shields.io/badge/skipped-${summary.skipped}-yellow)\n`;
-    }
-    markdown += `![Success Rate](https://img.shields.io/badge/success_rate-${successRate}%25-${summary.failed === 0 ? 'brightgreen' : (successRate >= 70 ? 'yellow' : 'red')})\n`;
-}
-markdown += `\n</div>\n\n`;
-
 // Visual progress bar
 if (summary.total > 0) {
     const passedPercent = Math.round((summary.passed / summary.total) * 100);
